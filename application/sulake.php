@@ -66,12 +66,9 @@ class Sulake
         //Include the configuration file
         include './application/configuration.php';
         
-        //Break up the configuration array
-        foreach($_sulakeConfig as $key => $value)
-        {
-            //Set our variables
-            $this->configuration[$key] = $value;
-        }
+        //Set our variables
+        $this->configuration = $_sulakeConfig;
+        
     }
     
     //Sets our environment based on the configuration value
@@ -111,7 +108,7 @@ class Sulake
             $class = $this->getName($file);
             
             //Ignore em!
-            if (array_key_exists($class, $this->ignored_classes))
+            if (in_array($class, $this->ignored_classes))
             {
                 continue;
             }
@@ -126,9 +123,10 @@ class Sulake
             //If not let's just add it in
             $this->class[$class] = new $proper();
             
-            //Require our interfaces
-            $this->requireInterfaces();
-        }       
+        } 
+        
+        //Require our interfaces
+        $this->requireInterfaces();
     }
     
     private function requireInterfaces()

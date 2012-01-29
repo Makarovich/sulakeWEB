@@ -41,6 +41,9 @@ class Database
     //If the database is connected 
     private $connected; 
      
+    //Our class's query
+    private $classQuery;
+    
     //When the class is first constructed.. 
     public function __construct($database) 
     { 
@@ -101,6 +104,9 @@ class Database
     { 
         global $sulake; 
         
+        //Set our classQuery
+        $this->classQuery = $query;
+        
         if (!$this->stmt = $this->link->prepare($query)) 
         { 
             $sulake->writeError($this->stmt->error); 
@@ -111,51 +117,52 @@ class Database
     } 
      
     //Step 2 - Bind the parameters 
+	//@credits : Jos Piek(60%)
     public function bindParameters($params) 
     { 
         global $sulake;
         
-        //The key number 
-        $keyNumber = 0; 
-         
-        //The paramTypes array 
-        $paramSplit = array(); 
-         
-        //The parameter types
-        $paramTypes = null;
+		//Our types for the parameters
+        $paramTypes = ''; 
         
         //Split all the of the params. 
         foreach($params as $key => $value) 
         {           
-            echo $value.'<br>';
-            if (is_null($paramTypes)) 
-            { 
-                $paramTypes = $sulake->getType($value);
-            } 
-            else 
-            { 
-                $paramTypes .= $sulake->getType($value);
-            } 
-
+            //Set the types
+			$paramTypes .= $sulake->getType($value); 
         } 
-         
-        //Give paramSplit the value of the paramTypes(split) 
-        $paramSplit = explode(' ', $paramTypes); 
-         
-        //Another occurance of us splitting the parameters 
-        foreach ($params as $key => $value) 
-        { 
-            //Bind the parameter 
-            $this->stmt->bind_param($paramSplit[$keyNumber], $value); 
-             
-            //Increase the keyNumber 
-            $keyNumber++; 
-        } 
-         
+        
+		//Fill our arguments variable with an array of the parameter types
+		$arguments = array($paramTypes); 
+		 
+		//Make sure we have the correct parameters
+		$this->retrieveParams($params, $arguments); 
+		
+        //Bind the parameters
+		call_user_func_array(array($this->stmt, 'bind_param'), $arguments);
+        
         return $this; 
     } 
      
-    //Step 3 - Execute the query 
+	//Step 3 - Retrieve correct parameters
+	//@credits : Jos Piek
+	private function retrieveParams(array &$array, array &$out)
+	{
+		//Make sure the system is at a usuable version
+		if (strnatcmp(phpversion(),'5.3') >= 0) 
+        { 
+            foreach($array as $key => $value) 
+            { 
+                $out[] =& $array[$key]; 
+            } 
+        } 
+        else 
+        { 
+            $out = $array; 
+        } 
+	}
+	
+    //Step 4 - Execute the query 
     public function execute() 
     { 
         if(!$this->stmt->execute()) 
@@ -163,7 +170,6 @@ class Database
             return $this->stmt->error; 
         } 
          
-        
         return new STMT($this->stmt); 
     } 
 } 
