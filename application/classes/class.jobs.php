@@ -41,8 +41,8 @@ class Jobs
         global $sulake;
         
         //Grab all the jobs within the database..
-        $jobs = $sulake->class['database']->prepare('SELECT * FROM `sulake.jobs` WHERE `binary` = ?')
-                ->bindParameters(array(5))->execute();
+        $jobs = $sulake->database->prepare('SELECT * FROM `sulake.jobs` WHERE `binary` = ?')
+                ->bindParameters(array(1))->execute();
         
         while ($j = $jobs->fetchArray())
         {
@@ -75,11 +75,9 @@ class Jobs
         
         //Take our system authorization, to avoid exploitation.
         $sulake->job_authorization[$job['id']] = false;
-        
-        
-        
+ 
         //Update our last_time
-        $sulake->class['database']->prepare('UPDATE `sulake.jobs` SET last = ? WHERE id = ?')->bindParameters(array($job['id']))->execute();
+        $sulake->database->prepare('UPDATE `sulake.jobs` SET last = ? WHERE id = ?')->bindParameters(array(time(), $job['id']))->execute();
     }
 } 
 ?>

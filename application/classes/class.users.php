@@ -27,5 +27,23 @@ if(!defined('SULAKE')){die('Direct Loading Fobidden');}
 class Users
 { 
    
+    
+    //When a user is authenicated
+    public function authenicate($email, $password)
+    {
+        global $sulake;
+        
+        $result = $sulake->class['database']->prepare('SELECT * FROM `sulake.users` WHERE email = ? AND password = ?')
+                ->bindParameters(array($email, $password))->execute();
+                
+        if($result->num_rows() == 1)
+        {
+            echo 'mk gd';
+        }
+        else
+        {
+            $_SESSION['error'] = 'There isn\'t an account associated with that e-mail address.';
+        }
+    }
 } 
 ?>

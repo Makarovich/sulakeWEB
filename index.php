@@ -19,7 +19,13 @@ define('PAGE', 'Index');
 
 include('global.php');
 
-//$sulake->class['template']->appendTPL('hayhayhay');
+$sulake->template->addTPL('index-header');
+$sulake->template->addTPL('index');
 
-$sulake->class['template']->publishHTML();
+$sulake->template->addCSS('index');
+$sulake->template->addJavascript('index');
+
+$sulake->template->addFooter();
+
+$sulake->template->publishHTML();
 ?>

@@ -15,6 +15,20 @@
 * @author: Cobe Makarov 
 * --------------------------------------------*/ 
 
-define('PAGE', 'Index');
+if(!defined('SULAKE')){die('Direct Loading Fobidden');} 
 
+//Define our variable as an array.
+$_sulakeConfig = array();
+
+//Database variables
+$_sulakeConfig['database']['host'] = "localhost";
+$_sulakeConfig['database']['user'] = "root";
+$_sulakeConfig['database']['password'] = "lol123";
+$_sulakeConfig['database']['name'] = "mcd";
+
+//System variables
+$_sulakeConfig['system']['name'] = "Snobo";
+$_sulakeConfig['system']['tagline'] = "R.I.P Blowfis...";
+$_sulakeConfig['system']['environment'] = "2";
+$_sulakeConfig['system']['secret_quote'] = "snobolovesblowfis";
 ?>

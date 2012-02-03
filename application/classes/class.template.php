@@ -156,7 +156,9 @@ class Template
     { 
         ob_start(); 
         include $tpl; 
-        return ob_end_clean(); 
+        $data = ob_get_contents();
+        ob_end_clean(); 
+        return $data;
     } 
      
     //Appends the template file 
@@ -194,17 +196,18 @@ class Template
         } 
          
         //Set all the default javascript files 
-        //$sulake->class['template']->addJavascript('jquery'); 
+        $this->addJavascript('jquery'); 
         //$sulake->class['template']->addJavascript('alert'); 
          
         //Set all the required parameters 
         $this->setParameter('sulake_system_css', $this->css); //The required CSS 
         $this->setParameter('sulake_system_js', $this->js); //The required CSS 
-        $this->setParameter('exec_time', round(microtime(true) - $sulake->executionStart, 1)); //The page execution time 
+        $this->setParameter('sulake_lorem_ipsum', $this->getTPL('./application/views/lorem-ipsum.html'));
+        $this->setParameter('exec_time', round(microtime(true) - $sulake->executionStart, 3)); //The page execution time 
          
         foreach($sulake->configuration['system'] as $key => $value) 
         { 
-            $sulake->class['template']->SetParameter('sulake_config_'.$key, $value); //All the configuration values 
+            $this->SetParameter('sulake_config_'.$key, $value); //All the configuration values 
         } 
                  
         //Print the output while parsing the parameters within the output 
@@ -216,22 +219,14 @@ class Template
     //Parses all parameters in the output 
     private function parseParameters($str) 
     { 
-        foreach($this->parameter as $key => $value) 
-        { 
-            $str = str_ireplace('{'.$key.'}', $value, $str); 
-        } 
-        return $str; 
+        return str_replace(array_keys($this->parameter), array_values($this->parameter), $str);  
     } 
      
     //The process of setting a paremeter 
     public function setParameter($key, $value) 
     { 
-        //If the key is a string, not a object or array.. 
-        if (is_string($key) && !is_object($value) && !is_array($value)) 
-        { 
-            //Add it into the param soup! 
-            $this->parameter[$key] = $value; 
-        } 
+        //Add it into the param soup! 
+        $this->parameter['{'.$key.'}'] = $value;  
     } 
 } 
 ?>

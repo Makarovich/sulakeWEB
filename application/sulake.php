@@ -41,14 +41,21 @@ class Sulake
     //Determines whether a certain job is authorized to run.
     var $job_authorization = array();
     
+    //Is the installer running..?
+    private $installer_running = false;
+    
     public function __construct()
     {
         //Define our folder variables
         define('DS', '/');
-        define('LB', '"\r\n"');
+        define('LB', "\r\n");
         
         //Fill our configuration variable
         $this->handleConfiguration();
+        
+        //If the installer is running stop us in our tracks.
+        if ($this->installer_running)
+            break;
         
         //Now let's set our environment
         $this->setEnvironment();
@@ -63,6 +70,14 @@ class Sulake
     //Fills our configuration variable
     private function handleConfiguration()
     {
+        //If their configuration file doesn't exist, run the installer
+        if (!file_exists('./application/configuration.php'))
+        {
+            $this->installer_running = true;
+            header('Location: install.php');
+            return;
+        }
+        
         //Include the configuration file
         include './application/configuration.php';
         
@@ -116,12 +131,12 @@ class Sulake
             //If it's the database class, we need extra parameters
             if ($class == 'database')
             {
-                $this->class[$class] = new $proper($this->configuration['database']);
+                $this->$class = new $proper($this->configuration['database']);
                 continue;
             }
             
             //If not let's just add it in
-            $this->class[$class] = new $proper();
+            $this->$class = new $proper();
             
         } 
         
@@ -152,7 +167,7 @@ class Sulake
     {
         if (isset($_SESSION['error']))
         {
-            Template::setParameter('error', $_SESSION['error']);
+            $this->template->setParameter('error', $_SESSION['error']);
             
             //Unset our session variable
             unset($_SESSION['error']);
@@ -189,6 +204,30 @@ class Sulake
 
         if (is_string($var))
             return 's';
+    }
+    
+    public function hashVariable($var)
+    {
+        return sha1(md5($var.$this->configuration['system']['secret_quote']));
+        
+    }
+    
+    
+    public function redirect($url)
+    {
+        //$externalUrl = false;
+        
+        if (!strpos($url, '.php'))
+        {
+            $url .= '.php';
+        }
+        
+        if (!file_exists(DIR.DS.$url))
+        {
+            return; //It's an external link or doesn't exist.
+        }
+        
+        header('Location: '.$url);
     }
 }
 ?>

@@ -64,7 +64,8 @@ class Cache
        
        foreach ($this->array as $key => $value)
        {
-           //$sulake->class['template']->setParameter('sulake_cache_'.$key, $value);
+           
+            //$sulake->class['template']->setParameter('sulake_cache_'.$key, $value);
        } 
     }
 } 

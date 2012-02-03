@@ -20,6 +20,9 @@ session_start();
 //Needed for security reasons 
 define('SULAKE', null); 
 
+//The root directory
+define('ROOT', __DIR__);
+
 //The grand-poo-ba of classes within sulakeWEB 
 require('./application/sulake.php'); 
 
@@ -27,7 +30,7 @@ require('./application/sulake.php');
 $sulake = new Sulake(); 
 
 //Set the title 
-$sulake->class['template']->SetParameter('title', $sulake->configuration['system']['name'].'~'.PAGE); 
+$sulake->template->SetParameter('title', $sulake->configuration['system']['name'].'~'.PAGE); 
 
 //Check for errors 
 $sulake->errorCheck(); 
@@ -39,5 +42,5 @@ $sulake->errorCheck();
 //define('LOGGED_IN', $sulake->class['users']->userLogged()); 
 
 //Start running the jobs 
-$sulake->class['jobs']->start(); 
+$sulake->jobs->start(); 
 ?>

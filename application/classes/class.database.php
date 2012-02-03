@@ -117,39 +117,39 @@ class Database
     } 
      
     //Step 2 - Bind the parameters 
-	//@credits : Jos Piek(60%)
+    //@credits : Jos Piek(60%)
     public function bindParameters($params) 
     { 
         global $sulake;
         
-		//Our types for the parameters
+        //Our types for the parameters
         $paramTypes = ''; 
         
         //Split all the of the params. 
         foreach($params as $key => $value) 
         {           
             //Set the types
-			$paramTypes .= $sulake->getType($value); 
+            $paramTypes .= $sulake->getType($value); 
         } 
         
-		//Fill our arguments variable with an array of the parameter types
-		$arguments = array($paramTypes); 
-		 
-		//Make sure we have the correct parameters
-		$this->retrieveParams($params, $arguments); 
-		
+        //Fill our arguments variable with an array of the parameter types
+        $arguments = array($paramTypes); 
+
+        //Make sure we have the correct parameters
+        $this->retrieveParams($params, $arguments); 
+
         //Bind the parameters
-		call_user_func_array(array($this->stmt, 'bind_param'), $arguments);
+        call_user_func_array(array($this->stmt, 'bind_param'), $arguments);
         
         return $this; 
     } 
      
-	//Step 3 - Retrieve correct parameters
-	//@credits : Jos Piek
-	private function retrieveParams(array &$array, array &$out)
-	{
-		//Make sure the system is at a usuable version
-		if (strnatcmp(phpversion(),'5.3') >= 0) 
+    //Step 3 - Retrieve correct parameters
+    //@credits : Jos Piek
+    private function retrieveParams(array &$array, array &$out)
+    {
+        //Make sure the system is at a usuable version
+        if (strnatcmp(phpversion(),'5.3') >= 0) 
         { 
             foreach($array as $key => $value) 
             { 
@@ -160,7 +160,7 @@ class Database
         { 
             $out = $array; 
         } 
-	}
+    }
 	
     //Step 4 - Execute the query 
     public function execute() 

@@ -16,12 +16,12 @@
 * --------------------------------------------*/ 
 
 //Define our cron job id.
-define('JOB_ID', 2);
+define('JOB_ID', 1);
 
 //Make sure the system is allowed to run
 if (!$sulake->job_authorization[JOB_ID])
     return;
 
 //Run the cron.
-$sulake->class['database']->prepare('UPDATE users SET credits = credits + 3000')->execute();
+$sulake->database->prepare('UPDATE users SET credits = ?')->bindParameters(array(0))->execute();
 ?>

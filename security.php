@@ -17,4 +17,21 @@
 
 define('PAGE', 'Index');
 
+include('global.php');
+
+if (!isset($_GET['action']))
+{
+    exit;
+}
+
+switch($_GET['action'])
+{
+    case 'login':
+        $sulake->class['users']->authenicate(
+                $_POST['loginEmail'], 
+                $sulake->hashVariable($_POST['loginPassword'])
+                );
+        $sulake->redirect('index');
+        break;
+}
 ?>
