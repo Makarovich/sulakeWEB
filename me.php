@@ -15,21 +15,27 @@
 * @author: Cobe Makarov 
 * --------------------------------------------*/ 
 
-if(!defined('SULAKE')){die('Direct Loading Fobidden');} 
+define('PAGE', 'Index');
 
-//Define our variable as an array.
-$_sulakeConfig = array();
+include('global.php');
 
-//Database variables
-$_sulakeConfig['database']['host'] = "localhost";
-$_sulakeConfig['database']['user'] = "root";
-$_sulakeConfig['database']['password'] = "lol123";
-$_sulakeConfig['database']['name'] = "mcd";
+$sulake->template->addTPL('header');
 
-//System variables
-$_sulakeConfig['system']['name'] = "Snobo";
-$_sulakeConfig['system']['tagline'] = "R.I.P Blowfis...";
-$_sulakeConfig['system']['environment'] = "2";
-$_sulakeConfig['system']['secret_quote'] = "snobolovesblowfis";
-$_sulakeConfig['system']['site_path'] = "http://localhost/";
+$sulake->template->appendTPL('<div class="container">');
+
+$sulake->template->addTPL('news-widget');
+$sulake->template->addTPL('me');
+
+$sulake->template->appendTPL('</div>');
+
+$sulake->template->addCSS('global');
+$sulake->template->addJavascript('global', true);
+
+$sulake->template->setParameter('habbo-look', $sulake->habbo->grabLook($sessionCache->recieveValue('look')));
+
+$sulake->habbo->grabNews();
+
+$sulake->template->addFooter();
+
+$sulake->template->publishHTML();
 ?>

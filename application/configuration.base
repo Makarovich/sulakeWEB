@@ -31,5 +31,5 @@ $_sulakeConfig['system']['name'] = $system_name;
 $_sulakeConfig['system']['tagline'] = $system_tagline;
 $_sulakeConfig['system']['environment'] = $system_environment;
 $_sulakeConfig['system']['secret_quote'] = $system_quote;
-$_sulakeConfig['system']['hash_method'] = $system_hash;
+$_sulakeConfig['system']['site_path'] = $system_path;
 ?>

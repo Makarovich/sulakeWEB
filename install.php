@@ -75,6 +75,6 @@ function write($str, $error = false)
    {
        $str = '<font color=red><b>Error:</b></font> '.$str;
    }
-   echo $str."<br>\r\n";
+   echo $str.'<br>';
 }
 ?>

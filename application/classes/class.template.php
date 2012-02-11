@@ -228,5 +228,30 @@ class Template
         //Add it into the param soup! 
         $this->parameter['{'.$key.'}'] = $value;  
     } 
-} 
+}
+
+class simpleTemplate
+{
+    //The simpleTemplate content
+    private $content;
+    
+    //When first constructed..
+    public function __construct($file)
+    {
+        $this->content = file_get_contents('./application/views/simple/'.$file.'.html');
+        
+    }
+    
+    //Replace a variable within the content
+    public function replace($inquiry, $new_value)
+    {
+        $this->content = str_ireplace('['.$inquiry.']', $new_value, $this->content);
+    }
+    
+    //Return the content
+    public function result()
+    {
+        return $this->content;
+    }
+}
 ?>

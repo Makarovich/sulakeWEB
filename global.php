@@ -30,13 +30,15 @@ require('./application/sulake.php');
 $sulake = new Sulake(); 
 
 //Set the title 
-$sulake->template->SetParameter('title', $sulake->configuration['system']['name'].'~'.PAGE); 
+$sulake->template->SetParameter('title', $sulake->configuration['system']['name'].' - '.PAGE); 
 
 //Check for errors 
 $sulake->errorCheck(); 
 
 //Convert all the session variables to template parameters 
-//$sulake->class['users']->toTPL(); 
+$sessionCache = new Cache($_SESSION);
+
+$sessionCache->toTPL('habbo');
 
 //Define if the user is logged in 
 //define('LOGGED_IN', $sulake->class['users']->userLogged()); 

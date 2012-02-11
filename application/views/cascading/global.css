@@ -7,11 +7,6 @@ body
     font-size: 12px;
 }
 
-@font-face {
-    font-family: Delicious;
-    src: url("../../../gallery/Delicious-Bold.otf") format("opentype");
-}
-
 a
 {
     font-weight: bold;
@@ -75,10 +70,9 @@ input[type=submit]:hover,[type=button]:hover,input.button:hover
     margin: auto;
 }
 
-.middle-box
+.news
 {
     display: block;
-    min-height: 100px;
     margin: auto;
     box-shadow: 0px 4px 4px #D7D7D7;
     background-color: #FFFFFF;
@@ -87,7 +81,12 @@ input[type=submit]:hover,[type=button]:hover,input.button:hover
     border-radius: 4px;
     padding: 20px;
     border: solid #CCCCCC 1px;
-    width:250px;
+    width: 100%;
+}
+
+.list-item
+{
+    border-top: 1px solid #CCCCCC;
 }
 
 .footer
@@ -99,7 +98,7 @@ input[type=submit]:hover,[type=button]:hover,input.button:hover
     background-position: bottom center;
     position: fixed;
     bottom: 0px;
-    width: 100%; 
+    width: 99%; 
     padding: 3px;
     margin: 0;
 }
@@ -119,23 +118,6 @@ input[type=submit]:hover,[type=button]:hover,input.button:hover
     border: 1px solid #DD3C10;
 }
 
-.registerForm
-{
-    display: none;
-}
-
-.goodForm
-{
-    background: #CCEEBC;
-    border-color: #A6C69F;
-    color: black;
-}
-
-.badForm
-{
-    
-}
-
 .link
 {
     font-weight: bold;
@@ -146,4 +128,87 @@ input[type=submit]:hover,[type=button]:hover,input.button:hover
 .online
 {
     float: right;
+}
+
+.advertisement
+{
+    display: block;
+    box-shadow: 0px 4px 4px #D7D7D7;
+    background-color: #FFFFFF;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 20px;
+    border: solid #CCCCCC 1px;
+    width: 100px;
+}
+
+.container
+{
+    display:block;
+    margin: auto;
+    width: 53%;
+}
+
+.box
+{
+    display: block;
+    box-shadow: 0px 4px 4px #D7D7D7;
+    background-color: #FFFFFF;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 10px;
+    border: solid #CCCCCC 1px;
+    width: 40%;
+}
+
+.right
+{
+    float: right;
+}
+
+.left
+{
+    float: left;
+}
+
+.box .title
+{
+    display: block;
+    color: white;
+    font-weight: bold;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    background: #323232;
+    padding: 7px;
+    box-shadow: 0 3px 3px -2px gray;
+    
+}
+
+.plate
+{
+    background:url(../../../gallery/info_habbo_plate.png) no-repeat 2px -162px;
+    height:138px;
+    width:96px;
+    position:relative;
+    left:15px;
+    float:left;
+}
+
+.plate:hover
+{
+    background-position:2px 75px;
+}
+
+#user
+{
+    padding-left:13px;
+}
+
+.me-characters
+{
+    bottom: 0;
+    right: 0;
 }

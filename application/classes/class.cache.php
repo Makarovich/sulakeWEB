@@ -58,14 +58,13 @@ class Cache
     }
     
     //Convert all the array values to template parameters
-    public function toTPL()
+    public function toTPL($name)
     {
        global $sulake;
        
        foreach ($this->array as $key => $value)
-       {
-           
-            //$sulake->class['template']->setParameter('sulake_cache_'.$key, $value);
+       {        
+           $sulake->template->setParameter($name.'-'.$key, $value);
        } 
     }
 } 

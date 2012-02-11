@@ -100,7 +100,7 @@ class Sulake
                 break;
             
             case '2':
-                error_reporting(E_ALL ^ E_STRICT);
+                error_reporting(E_ALL ^ E_NOTICE);
                 break;
             
             default:
@@ -172,6 +172,10 @@ class Sulake
             //Unset our session variable
             unset($_SESSION['error']);
         }
+        else
+        {
+            $this->template->setParameter('error', 'Welcome to '.$this->configuration['system']['name'].' here you can login or register!');
+        }
     }
     
     public function writeError($error)
@@ -208,8 +212,7 @@ class Sulake
     
     public function hashVariable($var)
     {
-        return sha1(md5($var.$this->configuration['system']['secret_quote']));
-        
+        return sha1(md5($var.$this->configuration['system']['secret_quote']));       
     }
     
     
@@ -222,12 +225,12 @@ class Sulake
             $url .= '.php';
         }
         
-        if (!file_exists(DIR.DS.$url))
+        if (!file_exists($url))
         {
-            return; //It's an external link or doesn't exist.
+            return; //Ehh.. incorrect url so gtfo.
         }
         
-        header('Location: '.$url);
+        header('Location: '.$this->configuration['system']['site_path'].$url);
     }
 }
 ?>

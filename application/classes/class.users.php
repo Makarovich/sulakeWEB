@@ -26,24 +26,46 @@ if(!defined('SULAKE')){die('Direct Loading Fobidden');}
 
 class Users
 { 
-   
+    //The email this occurance is working with.
+    var $master_email = null;
+    
+    //How many accounts we need to catch
+    var $account_num = 0;
     
     //When a user is authenicated
     public function authenicate($email, $password)
     {
         global $sulake;
         
-        $result = $sulake->class['database']->prepare('SELECT * FROM `sulake.users` WHERE email = ? AND password = ?')
+        $result = $sulake->database->prepare('SELECT * FROM `sulake.users` WHERE email = ? AND password = ?')
                 ->bindParameters(array($email, $password))->execute();
                 
         if($result->num_rows() == 1)
         {
-            echo 'mk gd';
+            while($user_array = $result->fetchArray())
+            {
+                $_SESSION['master_email'] = $user_array['email'];
+                $_SESSION['account_num'] = $user_array['accounts'];
+            }
+            
+            $sulake->redirect('characters');
         }
         else
         {
             $_SESSION['error'] = 'There isn\'t an account associated with that e-mail address.';
+            $sulake->redirect('index');
         }
+    }
+    
+    //Grab all the users associated with this email
+    public function grabUsers()
+    {
+        global $sulake;
+        
+        $users = $sulake->database->prepare('SELECT * FROM users WHERE mail = ? LIMIT '.$_SESSION['account_num'])
+                ->bindParameters(array($_SESSION['master_email']))->execute();
+        
+        return $users;
     }
 } 
 ?>

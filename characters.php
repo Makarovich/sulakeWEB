@@ -15,21 +15,37 @@
 * @author: Cobe Makarov 
 * --------------------------------------------*/ 
 
-if(!defined('SULAKE')){die('Direct Loading Fobidden');} 
+define('PAGE', 'Characters');
 
-//Define our variable as an array.
-$_sulakeConfig = array();
+include('global.php');
 
-//Database variables
-$_sulakeConfig['database']['host'] = "localhost";
-$_sulakeConfig['database']['user'] = "root";
-$_sulakeConfig['database']['password'] = "lol123";
-$_sulakeConfig['database']['name'] = "mcd";
+$users = $sulake->users->grabUsers();
 
-//System variables
-$_sulakeConfig['system']['name'] = "Snobo";
-$_sulakeConfig['system']['tagline'] = "R.I.P Blowfis...";
-$_sulakeConfig['system']['environment'] = "2";
-$_sulakeConfig['system']['secret_quote'] = "snobolovesblowfis";
-$_sulakeConfig['system']['site_path'] = "http://localhost/";
+$sulake->template->addTPL('index-header');
+$sulake->template->addTPL('characters');
+
+$sulake->template->addCSS('index');
+$sulake->template->addJavascript('index');
+
+$user = $users->fetchArray();
+
+$id = 0;
+
+foreach($user as $key => $value)
+{
+    if ($key == 'id')
+    {
+        $id = $value;
+    }
+    
+    if ($key == 'look')
+    {
+        $value = $sulake->habbo->grabLook($value);
+    }
+    $sulake->template->setParameter('user-'.$id.'-'.$key, $value);
+}
+
+$sulake->template->addFooter();
+
+$sulake->template->publishHTML();
 ?>

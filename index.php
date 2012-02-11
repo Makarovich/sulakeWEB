@@ -19,6 +19,17 @@ define('PAGE', 'Index');
 
 include('global.php');
 
+if (isset($_SESSION['id']))
+{
+    $sulake->redirect('me');
+    return;
+}
+
+if (isset($_SESSION['master_email']))
+{
+    $sulake->redirect('characters');
+}
+
 $sulake->template->addTPL('index-header');
 $sulake->template->addTPL('index');
 
