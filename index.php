@@ -30,7 +30,7 @@ if (isset($_SESSION['master_email']))
     $sulake->redirect('characters');
 }
 
-$sulake->template->addTPL('index-headerz');
+$sulake->template->addTPL('index-header');
 $sulake->template->addTPL('index');
 
 $sulake->template->addCSS('index');
