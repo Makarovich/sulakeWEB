@@ -28,10 +28,7 @@ class Cache
 { 
    //Our class array
     private $array;
-    
-    //If our array var is set
-    private $arraySet;
-    
+
     public function __construct($array)
     {
         //The parameter they gave us is NOT an array..

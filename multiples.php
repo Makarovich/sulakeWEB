@@ -19,24 +19,11 @@ define('PAGE', 'Index');
 
 include('global.php');
 
-if (isset($_SESSION['id']))
-{
-    $sulake->redirect('me');
-    return;
-}
-
-if (isset($_SESSION['master_email']))
-{
-    $sulake->redirect('characters');
-}
-
-$sulake->template->addTPL('index-headerz');
-$sulake->template->addTPL('index');
+$sulake->template->addTPL('multiples');
 
 $sulake->template->addCSS('index');
-$sulake->template->addJavascript('index');
-
-$sulake->template->addFooter();
+$sulake->template->addJavascript('math', true);
 
 $sulake->template->publishHTML();
+
 ?>

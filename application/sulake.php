@@ -63,6 +63,11 @@ class Sulake
         //Let's cache our classes
         $this->initializeClasses();
         
+        //Set our custom error handler
+        include '/misc/error.handling.php';
+        
+        set_error_handler('writeError');
+        
         //Start the page load!
         $this->executionStart = microtime(true);
     }
@@ -177,20 +182,7 @@ class Sulake
             $this->template->setParameter('error', 'Welcome to '.$this->configuration['system']['name'].' here you can login or register!');
         }
     }
-    
-    public function writeError($error)
-    {
-        //$this->class['template']->displayError($this->getCaller(), $error);
-        echo $error;
-    }
-    
-    private function getCaller()
-    {
-        //$debug = debug_
-        return 'lol';
-        //return $debug[2];
-    }
-    
+      
     //Get the type of a variable
     public function getType($var)
     {
@@ -208,14 +200,17 @@ class Sulake
 
         if (is_string($var))
             return 's';
+        
+        
     }
     
+    //Hash a variable
     public function hashVariable($var)
     {
         return sha1(md5($var.$this->configuration['system']['secret_quote']));       
     }
     
-    
+    //Redirect to a url within the site map.
     public function redirect($url)
     {
         //$externalUrl = false;

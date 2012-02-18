@@ -15,28 +15,33 @@
 * @author: Cobe Makarov 
 * --------------------------------------------*/ 
 
-define('PAGE', 'Index');
 
-include('global.php');
+/* 
+* @name Session Class 
+* @desc A simple class that manages all session array related actions.
+* @author Cobe Makarov 
+*/ 
 
-if (isset($_SESSION['id']))
-{
-    $sulake->redirect('me');
-    return;
-}
-
-if (isset($_SESSION['master_email']))
-{
-    $sulake->redirect('characters');
-}
-
-$sulake->template->addTPL('index-headerz');
-$sulake->template->addTPL('index');
-
-$sulake->template->addCSS('index');
-$sulake->template->addJavascript('index');
-
-$sulake->template->addFooter();
-
-$sulake->template->publishHTML();
+//if(!defined('SULAKE')){die('Direct Loading Fobidden');} 
+//
+class Session
+{   
+//    //Set a session variable
+//    public function set($key, $new_value)
+//    {
+//        $_SESSION[$key] = $new_value;
+//    }
+//    
+//    //Clears a key
+//    public function clear($key)
+//    {
+//        unset($_SESSION[$key]);
+//    }
+//    
+//    //Close the session
+//    public function close()
+//    {
+//        session_destroy();
+//    }
+} 
 ?>

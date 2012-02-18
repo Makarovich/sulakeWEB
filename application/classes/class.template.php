@@ -62,7 +62,8 @@ class Template
          
         if (!file_exists('./application/views/'.$tpl.'.html')) 
         { 
-            $sulake->writeError($tpl. ' does not exist!'); 
+            trigger_error($tpl. ' does not exist!'); 
+            $this->hasError = true;
             return; 
         } 
          
@@ -72,7 +73,7 @@ class Template
         //Add it to the output         
         if (!is_null($this->output)) 
         { 
-            $this->output .= LB.$res; 
+            $this->output = $this->output.LB.$res; 
         } 
         else 
         { 
@@ -99,13 +100,14 @@ class Template
          
         if (!file_exists($file)) 
         { 
-            $sulake->writeError($file. ' does not exist!'); 
+            trigger_error($file. ' does not exist!'); 
+            $this->hasError = true;
             return; 
         } 
          
         if (!is_null($this->css)) 
         { 
-            $this->css .= LB.'<link rel="stylesheet" type="text/css" href="'.$file.'" />'; 
+            $this->css = $this->css.LB.'<link rel="stylesheet" type="text/css" href="'.$file.'" />'; 
         } 
         else 
         { 
@@ -123,7 +125,8 @@ class Template
          
         if (!file_exists($file)) 
         { 
-            $sulake->writeError($file. ' does not exist!'); 
+            trigger_error($file. ' does not exist!'); 
+            $this->hasError = true;
             return; 
         } 
          
@@ -164,7 +167,7 @@ class Template
     //Appends the template file 
     public function appendTPL($string) 
     { 
-        $this->output .= LB.$string; 
+        $this->output = $this->output.LB.$string; 
     } 
      
     //Re-writes the whole output to the error template file and then fills the error in! 
@@ -189,10 +192,15 @@ class Template
     { 
         global $sulake; 
          
+        if ($this->hasError)
+        {
+            return;
+        }
+        
         if (!is_null($this->end)) 
         { 
             //Let's add the end data 
-            $this->output .= LB.$this->end; 
+            $this->output = $this->output.LB.$this->end; 
         } 
          
         //Set all the default javascript files 

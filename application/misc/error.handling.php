@@ -16,15 +16,32 @@
 * --------------------------------------------*/ 
 
 
+/* 
+* @name Error handling!
+* @desc NULL 
+* @author Cobe Makarov 
+*/ 
+
 if(!defined('SULAKE')){die('Direct Loading Fobidden');} 
 
-//Define our cron job id.
-define('JOB_ID', 1);
+//Write out our error
+function writeError($error_number, $error_message, $error_file, $error_line)
+{
+    global $sulake;
+    
+    //OBV: The administrator doesn't want any errors shown.
+    if ($sulake->configuration['system']['environment'] == 0)
+    {
+        return;
+    }
+    
+    $output = new simpleTemplate('error');
 
-//Make sure the system is allowed to run
-if (!$sulake->job_authorization[JOB_ID])
-    return;
+    $output->replace('title', $error_number);
+    $output->replace('error', $error_message);
+    $output->replace('file', $error_file);
+    $output->replace('line', $error_line);
 
-//Run the cron.
-$sulake->database->prepare('UPDATE users SET credits = ?')->bindParameters(array(0))->execute();
+    die($output->result());    
+}
 ?>

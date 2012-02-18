@@ -40,9 +40,6 @@ $sessionCache = new Cache($_SESSION);
 
 $sessionCache->toTPL('habbo');
 
-//Define if the user is logged in 
-//define('LOGGED_IN', $sulake->class['users']->userLogged()); 
-
 //Start running the jobs 
 $sulake->jobs->start(); 
 ?>

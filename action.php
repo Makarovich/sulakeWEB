@@ -124,5 +124,52 @@ switch($_GET['do'])
             echo $output->result();
         }
         break;
+        
+    case 'multi':
+        
+        if (!isset($_GET['num']))
+        {
+            exit; //False request
+        }
+        
+        if (!is_numeric($_GET['num']))
+        {
+            die('That is not a number!');
+        }
+        $number = $_GET['num'];
+        
+        $count = 0;
+        
+        $multiples = array();
+        
+        $output = null;
+        
+        for($count = 0; $count <= 100; $count++)
+        {
+            $div = $number / $count;
+            
+            if ($div == 0)
+            {
+                continue;
+            }
+            
+            if ($div == 1)
+            {
+                continue;
+            }
+            
+            if (!(strpos($div, '.')))
+            {
+                array_push($multiples, $count);
+            }
+        }
+        
+        foreach(array_values($multiples) as $numb)
+        {
+            $output .= $numb.', ';
+        }
+        
+        echo $output;
+        break;
 }
 ?>

@@ -71,7 +71,7 @@ class Database
          
         //If there's an error, display it 
         if ($this->link->connect_error)     
-            $sulake->writeError($this->link->connect->errno); 
+            trigger_error($this->link->connect->errno); 
             return; 
          
              
@@ -109,7 +109,7 @@ class Database
         
         if (!$this->stmt = $this->link->prepare($query)) 
         { 
-            $sulake->writeError($this->stmt->error); 
+            trigger_error($this->stmt->error); 
             return; 
         } 
          
