@@ -41,7 +41,7 @@ class Jobs
         global $sulake;
         
         //Grab all the jobs within the database..
-        $jobs = $sulake->database->prepare('SELECT * FROM `sulake.jobs` WHERE `binary` = ?')
+        $jobs = $sulake->database->prepare('SELECT * FROM sulake_jobs WHERE `binary` = ?')
                 ->bindParameters(array(1))->execute();
         
         while ($j = $jobs->fetchArray())

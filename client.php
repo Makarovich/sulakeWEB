@@ -19,26 +19,16 @@ define('PAGE', 'Index');
 
 include('global.php');
 
-echo $sulake->hashVariable('snobopassword');
+$sulake->template->addTPL('client');
 
-if (isset($_SESSION['id']))
-{
-    $sulake->redirect('main');
-    return;
-}
+$sulake->template->addCSS('client');
 
-if (isset($_SESSION['master_email']))
-{
-    $sulake->redirect('characters');
-}
+$sulake->template->addJavascript('libs2');
+$sulake->template->addJavascript('visual');
+$sulake->template->addJavascript('libs');
+$sulake->template->addJavascript('common');
+$sulake->template->addJavascript('swfobject');
 
-$sulake->template->addTPL('index-header');
-$sulake->template->addTPL('index');
-
-$sulake->template->addCSS('index');
-$sulake->template->addJavascript('index');
-
-$sulake->template->addFooter();
 
 $sulake->template->publishHTML();
 ?>

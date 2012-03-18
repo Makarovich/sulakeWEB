@@ -71,8 +71,10 @@ class Database
          
         //If there's an error, display it 
         if ($this->link->connect_error)     
+        {
             trigger_error($this->link->connect->errno); 
             return; 
+        }
          
              
         //Tell the system we are now connected 

@@ -97,7 +97,15 @@ class Template
         global $sulake;
         
         $file = './application/views/cascading/'.$css.'.css'; 
-         
+        
+        if ($sulake->configuration['system']['mobile_override'])
+        {
+            if ($sulake->retrieveAgent($_SERVER['HTTP_USER_AGENT']) == 'Android' || $sulake->retrieveAgent($_SERVER['HTTP_USER_AGENT']) == 'Blackberry' || $sulake->retrieveAgent($_SERVER['HTTP_USER_AGENT']) ==  'iPhone')
+            {          
+                $file = './application/views/cascading/mobile-'.$css.'.css';
+            }
+        }
+        
         if (!file_exists($file)) 
         { 
             trigger_error($file. ' does not exist!'); 
@@ -134,7 +142,7 @@ class Template
         { 
             if (!is_null($this->end)) 
             { 
-                $this->end .= LB.'<script type="text/javascript" src="'.$file.'" ></script>'; 
+                $this->end = $this->end.LB.'<script type="text/javascript" src="'.$file.'" ></script>'; 
             } 
             else 
             { 
@@ -145,7 +153,7 @@ class Template
         { 
             if (!is_null($this->js)) 
             { 
-                $this->js .= LB.'<script type="text/javascript" src="'.$file.'" ></script>'; 
+                $this->js = $this->js.LB.'<script type="text/javascript" src="'.$file.'" ></script>'; 
             } 
             else 
             { 
@@ -205,7 +213,7 @@ class Template
          
         //Set all the default javascript files 
         $this->addJavascript('jquery'); 
-        //$sulake->class['template']->addJavascript('alert'); 
+        $this->addJavascript('jquery-ui.min'); 
          
         //Set all the required parameters 
         $this->setParameter('sulake_system_css', $this->css); //The required CSS 
@@ -217,7 +225,12 @@ class Template
         { 
             $this->SetParameter('sulake_config_'.$key, $value); //All the configuration values 
         } 
-                 
+             
+        foreach($sulake->configuration['client'] as $key => $value) 
+        { 
+            $this->SetParameter('sulake_client_'.$key, $value); //All the configuration values 
+        } 
+        
         //Print the output while parsing the parameters within the output 
         echo $this->parseParameters($this->output); 
          

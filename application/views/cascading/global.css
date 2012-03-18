@@ -54,9 +54,56 @@ input[type=submit]:hover,[type=button]:hover,input.button:hover
   background: #323232;
   font-weight: bold;
   padding: 7px;
-  box-shadow: 0 6px 6px -2px gray;
+  -webkit-box-shadow: 0 2px 3px rgba(0,0,0,.25);
+  -moz-box-shadow: 0 2px 3px rgba(0,0,0,.25);
+  box-shadow: 0 2px 3px rgba(0,0,0,.25);
   color: #FFFFFF;
   width: 99%;
+}
+
+.header .username
+{
+    float: right;
+    color: white;
+    cursor: pointer;
+}
+
+.stats
+{
+    z-index: 9;
+    display: none;
+    width: 80px;
+    height: 150px;
+    background: #323232;
+    float: right;
+    border-radius: 5px;
+    color: white;
+    margin-top: 30px;
+    padding: 15px;
+    box-shadow: 0 6px 6px -2px gray;
+}
+
+.stats .logout
+{
+    background-image: url(../../../gallery/logout.png);
+    float: right;
+    cursor: pointer;
+}
+
+.stats .head
+{
+    display: block;
+    width: 99%;
+}
+
+.stats input
+{
+    background: #323232;
+    border: none;
+    color: white;
+    font-size: 12px;
+    margin: 0;
+    width: 99%;
 }
 
 .gap
@@ -73,7 +120,6 @@ input[type=submit]:hover,[type=button]:hover,input.button:hover
 .news
 {
     display: block;
-    margin: auto;
     box-shadow: 0px 4px 4px #D7D7D7;
     background-color: #FFFFFF;
     -webkit-border-radius: 4px;
@@ -82,6 +128,7 @@ input[type=submit]:hover,[type=button]:hover,input.button:hover
     padding: 20px;
     border: solid #CCCCCC 1px;
     width: 100%;
+    float: left;
 }
 
 .list-item
@@ -92,7 +139,6 @@ input[type=submit]:hover,[type=button]:hover,input.button:hover
 .footer
 {
     border-top: solid #D4D4D4 1px;
-    padding: 10px;
     background: #E8E8E8;
     min-height: 30px;
     background-position: bottom center;
@@ -101,6 +147,7 @@ input[type=submit]:hover,[type=button]:hover,input.button:hover
     width: 99%; 
     padding: 3px;
     margin: 0;
+    height: 30px;
 }
 
 .message
@@ -148,6 +195,20 @@ input[type=submit]:hover,[type=button]:hover,input.button:hover
     display:block;
     margin: auto;
     width: 53%;
+}
+
+.me-box
+{
+    display: block;
+    box-shadow: 0px 4px 4px #D7D7D7;
+    background-color: #FFFFFF;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 20px;
+    border: solid #CCCCCC 1px;
+    width: 20%;
+    float: right;
 }
 
 .box
@@ -211,4 +272,51 @@ input[type=submit]:hover,[type=button]:hover,input.button:hover
 {
     bottom: 0;
     right: 0;
+}
+
+.news-container
+{
+    display: block;
+    float: left;
+    width: 50%;
+}
+
+.news-marquee
+{
+    display: inline-block;
+    float: right;
+    width: 40%;
+}
+
+.news-marquee .title
+{
+    font-style: italic;
+    font-size: 18px;
+    color: #3D3D3D;
+}
+
+#icon-left
+{
+    display: inline-block;
+    background: url(../../../gallery/icon-left.png) 0 0 no-repeat;
+    width: 21px;
+    height: 21px;
+}
+
+#icon-left:hover
+{
+    background: url(../../../gallery/hover-icon-left.png) 0 0 no-repeat;
+}
+
+#icon-right
+{
+    display: inline-block;
+    background: url(../../../gallery/icon-right.png) 0 0 no-repeat;
+    width: 21px;
+    height: 21px;
+}
+
+#icon-right:hover
+{
+    background: url(../../../gallery/hover-icon-right.png) 0 0 no-repeat;
 }

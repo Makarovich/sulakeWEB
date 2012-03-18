@@ -33,7 +33,9 @@ class Cache
     {
         //The parameter they gave us is NOT an array..
         if (!is_array($array))
+        {
             return;
+        }
         
         //If it is, set our class array with the values
         $this->array = $array;

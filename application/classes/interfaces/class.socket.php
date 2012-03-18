@@ -15,30 +15,17 @@
 * @author: Cobe Makarov 
 * --------------------------------------------*/ 
 
-define('PAGE', 'Index');
 
-include('global.php');
+/* 
+* @name Socket Class 
+* @desc Nothing for now..
+* @author Cobe Makarov 
+*/ 
 
-echo $sulake->hashVariable('snobopassword');
+if(!defined('SULAKE')){die('Direct Loading Fobidden');} 
 
-if (isset($_SESSION['id']))
-{
-    $sulake->redirect('main');
-    return;
-}
-
-if (isset($_SESSION['master_email']))
-{
-    $sulake->redirect('characters');
-}
-
-$sulake->template->addTPL('index-header');
-$sulake->template->addTPL('index');
-
-$sulake->template->addCSS('index');
-$sulake->template->addJavascript('index');
-
-$sulake->template->addFooter();
-
-$sulake->template->publishHTML();
+class Socket
+{ 
+   
+} 
 ?>

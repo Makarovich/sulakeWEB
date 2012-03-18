@@ -30,7 +30,7 @@ class Habbo
     //Grab a cached look
     public function grabLook($look)
     {
-        if (!file_exists('./cache/looks/'.$look))
+        if (!file_exists('./cache/looks/'.$look.'.png'))
         {                    
             file_put_contents(
                     './cache/looks/'.$look.'.png', 
@@ -41,26 +41,41 @@ class Habbo
     }
     
     //Grabs the news and sets it as a template parameter.
-    public function grabNews()
+    public function grabNews($id, $return = false)
     {
         global $sulake;
         
-        $news = $sulake->database->prepare('SELECT * FROM `sulake.news`')->execute();
+        $news = $sulake->database->prepare('SELECT id, title, image FROM sulake_news WHERE id = ?')
+                ->bindParameters(array($id))->execute();
         
         $output = null;
         
+        if ($news->num_rows() == 0)
+        {
+            if ($return)
+            {
+                return 'is_null';
+            }
+            
+            $sulake->template->setParameter('paper-marquee', 'No news articles found!');
+            return;
+        }
         
         while($news_array = $news->fetchArray())
         {
-            $simple = new simpleTemplate('news-list');
+            $simple = new simpleTemplate('news-marquee');
             $simple->replace('id', $news_array['id']);
             $simple->replace('title', $news_array['title']);
-            $simple->replace('author', $news_array['author']);
-            $simple->replace('date', $news_array['date']);
-            $output .= $simple->result();
+            $simple->replace('image', $news_array['image']);
+            $output = $simple->result();
         }
         
-        $sulake->template->setParameter('news-list', $output);
+        if ($return)
+        {
+            return $output;
+        }
+        
+        $sulake->template->setParameter('paper-marquee', $output);
     }
 } 
 ?>

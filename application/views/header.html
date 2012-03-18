@@ -9,6 +9,21 @@
     <body>
         <div class="header">
             <div style="float: left;">{sulake_config_name} - {sulake_config_tagline}</div>
-            <div style="float: right;" onhover="alert(a)">{habbo-username}</div>
+            <a class="username">
+                {habbo-username}
+            </a>
+        </div>
+        <div class="stats">
+            <div style="float: left;">
+                <img src="action.php?do=grab_head&look={habbo-look}" />
+            </div>
+            <a onclick="logoutUser()">
+                <img src="./gallery/logout.png" style="float: right; cursor: pointer" /><br>
+            </a>
+            <br><br>
+            <br><br>
+            <img src="./gallery/credits.png" /> {habbo-credits}<br>
+            <img src="./gallery/pixels.png" /> &nbsp;{habbo-activity_points}<br>
+            <input type="text" id="motto-field" value="{habbo-motto}" />
         </div>
         <div class="gap"></div>

@@ -17,4 +17,5 @@
 
 define('PAGE', 'Index');
 
+include('global.php');
 ?>

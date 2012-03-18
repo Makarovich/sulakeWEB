@@ -32,4 +32,10 @@ $_sulakeConfig['system']['tagline'] = "R.I.P Blowfis...";
 $_sulakeConfig['system']['environment'] = "2";
 $_sulakeConfig['system']['secret_quote'] = "snobolovesblowfis";
 $_sulakeConfig['system']['site_path'] = "http://localhost/";
+//If a user is using a mobile device, do you want the system to override whatever style is being used?
+$_sulakeConfig['system']['mobile_override'] = true; 
+
+//Client variables
+$_sulakeConfig['client']['server_ip'] = '127.0.0.1';
+$_sulakeConfig['client']['server_port'] = '30000';
 ?>

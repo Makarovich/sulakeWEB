@@ -112,21 +112,18 @@ function checkPassword(second)
     }
 }
 
-function loadMore()
+function populateContainer()
 {
-    var populate = getResult('action.php?do=populate');
-    
-    if (populate == '0')
+    $.post('action.php', {populate: true}, function(data)
     {
-        alert('You don\'t have any more users linked to this e-mail!');
-        return;
-    }
-    
-    $('.more_container').fadeOut('slow', function()
-    {
-        $('.more_container').html(populate);
-        $('.more_container').fadeIn('slow');
+       $('.more_container').html(data);
     });
-    
-    $('#load').fadeOut('slow');
+}
+
+function activateUser(id)
+{
+    $.post('action.php', {activate: true, user_id: id}, function()
+    {
+        window.location = 'index.php';
+    });
 }

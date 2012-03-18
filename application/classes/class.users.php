@@ -37,7 +37,7 @@ class Users
     {
         global $sulake;
         
-        $result = $sulake->database->prepare('SELECT * FROM `sulake.users` WHERE email = ? AND password = ?')
+        $result = $sulake->database->prepare('SELECT * FROM sulake_users WHERE email = ? AND password = ?')
                 ->bindParameters(array($email, $password))->execute();
                 
         if($result->num_rows() == 1)

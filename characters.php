@@ -29,20 +29,13 @@ $sulake->template->addJavascript('index');
 
 $user = $users->fetchArray();
 
-$id = 0;
-
 foreach($user as $key => $value)
 {
-    if ($key == 'id')
-    {
-        $id = $value;
-    }
-    
     if ($key == 'look')
     {
         $value = $sulake->habbo->grabLook($value);
     }
-    $sulake->template->setParameter('user-'.$id.'-'.$key, $value);
+    $sulake->template->setParameter('user-'.$key, $value);
 }
 
 $sulake->template->addFooter();

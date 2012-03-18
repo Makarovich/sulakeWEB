@@ -19,24 +19,18 @@ define('PAGE', 'Index');
 
 include('global.php');
 
-echo $sulake->hashVariable('snobopassword');
+echo (isset($_SESSION['test'])) ? $_SESSION['test'] : null;
 
-if (isset($_SESSION['id']))
-{
-    $sulake->redirect('main');
-    return;
-}
+$sulake->template->addTPL('header');
 
-if (isset($_SESSION['master_email']))
-{
-    $sulake->redirect('characters');
-}
+$sulake->template->addTPL('main');
 
-$sulake->template->addTPL('index-header');
-$sulake->template->addTPL('index');
+$sulake->template->addCSS('global');
+$sulake->template->addJavascript('global', true);
 
-$sulake->template->addCSS('index');
-$sulake->template->addJavascript('index');
+$sulake->habbo->grabNews(1);
+
+$sulake->template->setParameter('habbo-look-image', $sulake->habbo->grabLook($sessionCache->recieveValue('look')));
 
 $sulake->template->addFooter();
 

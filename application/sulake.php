@@ -64,7 +64,7 @@ class Sulake
         $this->initializeClasses();
         
         //Set our custom error handler
-        include '/misc/error.handling.php';
+        include 'misc/error.handling.php';
         
         set_error_handler('writeError');
         
@@ -226,6 +226,12 @@ class Sulake
         }
         
         header('Location: '.$this->configuration['system']['site_path'].$url);
+    }
+    
+    //Get the user's operating system
+    public function retrieveAgent($agent)
+    {
+        return $_SERVER['SERVER_SOFTWARE'];
     }
 }
 ?>
