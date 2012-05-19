@@ -31,21 +31,29 @@ if (AUTHENICATED && !ACTIVATED)
     $blowfis->redirect('characters');
 }
 
-$_auth = 'sw-'.$_SESSION['habbo']['username'].'-'.rand(1 , 9).rand(1 , 9).rand(1 , 9).rand(1 , 9);
-
-$blowfis->_database->prepare('UPDATE users SET auth_ticket = ? WHERE id = ?')
-        ->bindParameters(array($_auth, $_SESSION['habbo']['id']))->execute();
+$blowfis->_template->setParameter('site_title', $blowfis->_configuration['site']['name']);
+$blowfis->_template->setParameter('users_online', 0);
 
 foreach($_SESSION['habbo'] as $_key => $_value)
 {
     $blowfis->_template->setParameter('habbo_'.$_key, $_value);
 }
 
-$blowfis->_template->addTemplate('page-client');
+$blowfis->_template->addTemplate('page-header');
+$blowfis->_template->addTemplate('page-article');
+$blowfis->_template->addTemplate('page-community');
 
-$blowfis->_template->addJavascript('swfobject');
+$blowfis->_template->addCascading('sweb-boxes');
+$blowfis->_template->addCascading('sweb-body');
+$blowfis->_template->addCascading('sweb-news');
+$blowfis->_template->addCascading('sweb-header');
+
+$blowfis->_template->addJavascript('jquery.global');
+$blowfis->_template->addJavascript('jquery.twitter');
+$blowfis->_template->addJavascript('jquery.community');
+$blowfis->_template->addJavascript('jquery.articles');
+$blowfis->_template->addJavascript('jquery.online');
 
 $blowfis->_template->addFooter();
 $blowfis->_template->publishHTML();
-
 ?>

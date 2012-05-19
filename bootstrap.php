@@ -16,32 +16,8 @@
 * --------------------------------------------*/
 
 ################################################
-//The current location
-define('LOCATION', basename(__FILE__));
+//File only used to init the global file.
+//Since the file path is so long.. ;>
 
-include('bootstrap.php');
-
-if (AUTHENICATED)
-{
-    if (ACTIVATED)
-    {
-        $blowfis->redirect('me.php');
-    }
-    else
-    {
-        $blowfis->redirect('characters');
-    }
-}
-
-$blowfis->_template->setParameter('site_title', $blowfis->_configuration['site']['name']);
-$blowfis->_template->setParameter('users_online', 0);
-
-$blowfis->_template->addTemplate('page-index');
-
-$blowfis->_template->addCascading('sweb-index');
-$blowfis->_template->addCascading('sweb-header');
-
-$blowfis->_template->addJavascript('jquery.index');
-
-$blowfis->_template->publishHTML();
+include('application/library/includes/handlers/global/global.php');
 ?>

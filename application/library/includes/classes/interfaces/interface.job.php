@@ -16,32 +16,20 @@
 * --------------------------------------------*/
 
 ################################################
-//The current location
-define('LOCATION', basename(__FILE__));
-
-include('bootstrap.php');
-
-if (AUTHENICATED)
+//Someone is trying to access this file directly!
+if (!defined('BLOWFIS'))
 {
-    if (ACTIVATED)
-    {
-        $blowfis->redirect('me.php');
-    }
-    else
-    {
-        $blowfis->redirect('characters');
-    }
+   exit;
 }
 
-$blowfis->_template->setParameter('site_title', $blowfis->_configuration['site']['name']);
-$blowfis->_template->setParameter('users_online', 0);
+/*
+ * author: Cobe Makarov
+ * name: Job Interface
+ * description: All job instances need to implement this to run properly
+ */
 
-$blowfis->_template->addTemplate('page-index');
-
-$blowfis->_template->addCascading('sweb-index');
-$blowfis->_template->addCascading('sweb-header');
-
-$blowfis->_template->addJavascript('jquery.index');
-
-$blowfis->_template->publishHTML();
+interface iJob
+{
+    public function run();
+}
 ?>

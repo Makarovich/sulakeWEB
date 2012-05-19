@@ -16,32 +16,26 @@
 * --------------------------------------------*/
 
 ################################################
-//The current location
-define('LOCATION', basename(__FILE__));
-
-include('bootstrap.php');
-
-if (AUTHENICATED)
+//Someone is trying to access this file directly!
+if (!defined('BLOWFIS'))
 {
-    if (ACTIVATED)
-    {
-        $blowfis->redirect('me.php');
-    }
-    else
-    {
-        $blowfis->redirect('characters');
-    }
+   exit;
 }
 
-$blowfis->_template->setParameter('site_title', $blowfis->_configuration['site']['name']);
-$blowfis->_template->setParameter('users_online', 0);
+/*
+ * author: Cobe Makarov
+ * name: Result Object Interface
+ * description: All - classes will follow this format
+ */
 
-$blowfis->_template->addTemplate('page-index');
+interface ResultObj
+{
+    public function __construct($queryObject, $connectionVariable);
 
-$blowfis->_template->addCascading('sweb-index');
-$blowfis->_template->addCascading('sweb-header');
+    public function result();
 
-$blowfis->_template->addJavascript('jquery.index');
+    public function fetch_array();
 
-$blowfis->_template->publishHTML();
+    public function num_rows();
+}
 ?>

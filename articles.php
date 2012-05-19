@@ -31,12 +31,30 @@ if (AUTHENICATED && !ACTIVATED)
     $blowfis->redirect('characters');
 }
 
-if (!file_exists('./application/cache/looks/'.$_SESSION['habbo']['look'].'.png'))
+foreach($_GET as $_key => $_value) // Some small $_GET hacking!
 {
-    file_put_contents('./application/cache/looks/'.$_SESSION['habbo']['look'].'.png',
-                    file_get_contents('http://www.habbo.com/habbo-imaging/avatarimage?figure='.$_SESSION['habbo']['look'].'.gif')
-                    );
+    if (!is_int($_key))
+    {
+        exit; // Someone is being an idiot..
+    }
+
+    $_GET['article-id'] = $_key;
+    break;
 }
+
+$_article = $blowfis->_database->prepare('SELECT * FROM sulake_news WHERE id = ?')
+        ->bindParameters(array($_GET['article-id']))->execute();
+
+while($_a = $_article->fetch_array())
+{
+    $blowfis->_template->setParameter('article_title', $_a['title']);
+    $blowfis->_template->setParameter('article_author', $_a['author']);
+    $blowfis->_template->setParameter('article_date', $_a['date']);
+    $blowfis->_template->setParameter('article_story', $_a['story']);
+    $blowfis->_template->setParameter('article_image', $_a['image']);
+}
+
+$blowfis->_template->setParameter('article_id', $_GET['article-id']);
 
 $blowfis->_template->setParameter('site_title', $blowfis->_configuration['site']['name']);
 $blowfis->_template->setParameter('users_online', 0);
@@ -47,18 +65,18 @@ foreach($_SESSION['habbo'] as $_key => $_value)
 }
 
 $blowfis->_template->addTemplate('page-header');
-$blowfis->_template->addTemplate('page-article');
-$blowfis->_template->addTemplate('page-me');
+$blowfis->_template->addTemplate('page-hard-article');
 
 $blowfis->_template->addCascading('sweb-boxes');
 $blowfis->_template->addCascading('sweb-body');
-$blowfis->_template->addCascading('sweb-news');
 $blowfis->_template->addCascading('sweb-header');
 
 $blowfis->_template->addJavascript('jquery.global');
 $blowfis->_template->addJavascript('jquery.articles');
+$blowfis->_template->addJavascript('jquery.comments');
 $blowfis->_template->addJavascript('jquery.online');
 
 $blowfis->_template->addFooter();
 $blowfis->_template->publishHTML();
+
 ?>

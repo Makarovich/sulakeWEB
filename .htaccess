@@ -1,2 +1,11 @@
-RewriteEngine On 
+RewriteEngine on
+RewriteRule ^(.*)\.html $1\.php
 
+Options -Indexes
+
+RewriteRule ^me(|/)$ ./me.php
+RewriteRule ^community(|/)$ ./community.php
+RewriteRule ^articles(|/)$ ./articles.php
+RewriteRule ^characters(|/)$ ./characters.php
+RewriteRule ^staff(|/)$ ./staff.php
+RewriteRule ^client(|/)$ ./client.php

@@ -16,32 +16,22 @@
 * --------------------------------------------*/
 
 ################################################
-//The current location
-define('LOCATION', basename(__FILE__));
-
-include('bootstrap.php');
-
-if (AUTHENICATED)
+//Someone is trying to access this file directly!
+if (!defined('BLOWFIS'))
 {
-    if (ACTIVATED)
-    {
-        $blowfis->redirect('me.php');
-    }
-    else
-    {
-        $blowfis->redirect('characters');
-    }
+   exit;
 }
 
-$blowfis->_template->setParameter('site_title', $blowfis->_configuration['site']['name']);
-$blowfis->_template->setParameter('users_online', 0);
+/*
+ * author: Cobe Makarov
+ * name: Plugin Interface
+ * description: The guidelines in which all plugin classes should follow
+ */
 
-$blowfis->_template->addTemplate('page-index');
+interface iPlugin
+{
+    public function __start();
 
-$blowfis->_template->addCascading('sweb-index');
-$blowfis->_template->addCascading('sweb-header');
-
-$blowfis->_template->addJavascript('jquery.index');
-
-$blowfis->_template->publishHTML();
+    public function __stop();
+}
 ?>
